@@ -7,13 +7,16 @@ import prefabArrays
 
 def default_mode(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None):
     if loop_count == 0:
-        # initialize everything
-        # 1. create objects
-        #   a. create array
-        input_array = RandomArrays.random_array(array_length, screen_height)
-        #   b. array_to_objects
-        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
-        # 2. draw
+        if input_array == []:
+            # initialize everything
+            # 1. create objects
+            #   a. create array
+            input_array = RandomArrays.random_array(array_length, screen_height)
+            #   b. array_to_objects
+            ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+            # 2. draw
+        else:
+            ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
         loop_count += 1
     elif loop_count >= screen_height:
         # base case achieved

@@ -13,8 +13,9 @@ screen_dimensions = (screen_width, screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 array_length = 50
-input_array = []
+input_array = prefabArrays.descending_array(100, screen_height)
 mode = "buble"
+# mode = "default"
 preFab = True
 
 loop_count = 0
