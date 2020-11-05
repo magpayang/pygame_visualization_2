@@ -46,7 +46,7 @@ while True:
     else:
         # update everything
         # 1. update objects
-        #   a. algo updates array
+        #   a. algo updates array:
         #   b. updated_array_to_objects
         # 2. draw
         ArrayToRectangles.arrayToRectangles(screen, screen_dimensions, input_array, Colors.red, loop_count, 0)
