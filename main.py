@@ -1,7 +1,6 @@
 
-# import SortingAlgo
-import ArrayToRectangles
-import RandomArrays
+import prefabArrays
+import modes
 import time
 import Colors
 import pygame
@@ -13,14 +12,13 @@ screen_height = 300
 screen_dimensions = (screen_width, screen_height)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-y_offset = 0
-object_holder = []
-array_lenght = 100
-max_array_height = screen_height
-min_array_height = 0
+array_length = 50
+input_array = []
+mode = "buble"
+preFab = True
+
 loop_count = 0
-i = 0
-delay = 0.01
+delay = 0.1
 halt = False
 while True:
     time.sleep(delay)
@@ -31,25 +29,12 @@ while True:
     if not halt:
         screen.fill(Colors.black)
 
-    if loop_count == 0:
-        # initialize everything
-        # 1. create objects
-        #   a. create array
-        input_array = RandomArrays.random_array(array_lenght, screen_height)
-        #   b. array_to_objects
-        ArrayToRectangles.arrayToRectangles(screen, screen_dimensions, input_array, Colors.red, loop_count, 0)
-        # 2. draw
-        loop_count += 1
-    elif loop_count >= screen_height:
-        # base case achieved
-        loop_count = 0
-    else:
-        # update everything
-        # 1. update objects
-        #   a. algo updates array:
-        #   b. updated_array_to_objects
-        # 2. draw
-        ArrayToRectangles.arrayToRectangles(screen, screen_dimensions, input_array, Colors.red, loop_count, 0)
-        loop_count += 1
+    if mode.lower() == "default":
+        loop_count, input_array = modes.default_mode(loop_count, screen, screen_dimensions, array_length, screen_height,
+                                                     Colors.red, input_array=input_array)
+    elif mode.lower() == "buble":
+        loop_count, input_array = modes.buble_one_pass(loop_count, screen, screen_dimensions, array_length,
+                                                       screen_height, Colors.red, input_array=input_array,
+                                                       preFab=preFab)
 
     pygame.display.flip()

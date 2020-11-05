@@ -3,6 +3,7 @@
 
 import pygame
 
+
 class arrayToRectangles:
     def __init__(self, surface, surface_dimensions, input_array, color, x_offset = 0, y_offset = 0):
         self.surface = surface
