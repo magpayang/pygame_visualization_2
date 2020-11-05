@@ -7,3 +7,19 @@ def buble_sort_one_pass(input_array):
             input_array[idx] = temp
 
     return input_array
+
+def selection_sort_one_pass(input_array, stick):
+    current = 0
+    current_index = 0
+    for idx in range(stick):
+        if input_array[idx] > current:
+            current = input_array[idx]
+            current_index = idx
+
+    temp = input_array[stick-1]  # archieve the last item
+    input_array[stick-1] = current  # replace last slot with the largest found
+    input_array[current_index] = temp  # transfer last item to slot of greatest
+
+    stick-=1
+    return input_array, stick
+

@@ -46,6 +46,25 @@ def buble_one_pass(loop_count, surface, surface_dimension, array_length, screen_
         loop_count = 0
     else:
         input_array = SortingAlgo.buble_sort_one_pass(input_array)
+        print(input_array)
         ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
         loop_count += 1
     return loop_count, input_array
+
+
+def selection_sort_one_pass(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None, preFab=False, stick=0):
+    if loop_count == 0:
+        if preFab:
+            input_array = prefabArrays.descending_array(array_length, screen_height)
+        else:
+            input_array = RandomArrays.random_array(array_length, screen_height)
+        stick = array_length
+        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+        loop_count += 1
+    elif stick == 1:
+        loop_count = 0
+    else:
+        input_array, stick = SortingAlgo.selection_sort_one_pass(input_array, stick)
+        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+        loop_count += 1
+    return loop_count, input_array, stick
