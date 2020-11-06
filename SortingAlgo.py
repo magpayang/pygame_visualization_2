@@ -23,3 +23,13 @@ def selection_sort_one_pass(input_array, stick):
     stick-=1
     return input_array, stick
 
+def insertion_sort_one_pass(input_array, idx):
+    current = input_array[idx]
+    increment = 0
+    while (input_array[idx - 1 - increment] > current) and (idx - 1 - increment >= 0):
+        input_array[idx-increment] = input_array[idx-1-increment]
+        increment += 1
+
+    input_array[idx-1-increment+1]=current
+    return input_array, idx
+

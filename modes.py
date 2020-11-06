@@ -5,28 +5,17 @@ import SortingAlgo
 import prefabArrays
 
 
-def default_mode(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None):
-    if loop_count == 0:
-        if input_array == []:
-            # initialize everything
-            # 1. create objects
-            #   a. create array
-            input_array = RandomArrays.random_array(array_length, screen_height)
-            #   b. array_to_objects
-            ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
-            # 2. draw
+def default_mode(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None, preFab=False):
+    if loop_count == 0:  # initial settings
+        if preFab:
+            input_array = prefabArrays.descending_array(array_length, screen_height)
         else:
-            ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+            input_array = RandomArrays.random_array(array_length, screen_height)
+        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
         loop_count += 1
-    elif loop_count >= screen_height:
-        # base case achieved
+    elif loop_count >= screen_height:  # base cases
         loop_count = 0
-    else:
-        # update everything
-        # 1. update objects
-        #   a. algo updates array:
-        #   b. updated_array_to_objects
-        # 2. draw
+    else:  # loops
         ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
         loop_count += 1
 
@@ -46,7 +35,6 @@ def buble_one_pass(loop_count, surface, surface_dimension, array_length, screen_
         loop_count = 0
     else:
         input_array = SortingAlgo.buble_sort_one_pass(input_array)
-        print(input_array)
         ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
         loop_count += 1
     return loop_count, input_array
@@ -68,3 +56,22 @@ def selection_sort_one_pass(loop_count, surface, surface_dimension, array_length
         ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
         loop_count += 1
     return loop_count, input_array, stick
+
+
+def insertion_sort_one_pass(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None, preFab=False, idx=0):
+    if loop_count == 0:
+        if preFab:
+            input_array = prefabArrays.descending_array(array_length, screen_height)
+        else:
+            input_array = RandomArrays.random_array(array_length, screen_height)
+        idx = 1  # for insertion sort, always start at idx 1 up to less than array.length()
+        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+        loop_count += 1
+    elif idx == len(input_array):
+        loop_count = 0
+    else:
+        input_array, idx = SortingAlgo.insertion_sort_one_pass(input_array, idx)
+        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+        idx += 1
+        loop_count += 1
+    return loop_count, input_array, idx
