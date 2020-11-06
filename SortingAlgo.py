@@ -1,5 +1,5 @@
 
-def buble_sort_one_pass(input_array):
+def bubble_sort_one_pass(input_array):
     for idx in range(len(input_array)-1):
         if input_array[idx] > input_array[idx+1]:
             temp = input_array[idx+1]
@@ -7,6 +7,7 @@ def buble_sort_one_pass(input_array):
             input_array[idx] = temp
 
     return input_array
+
 
 def selection_sort_one_pass(input_array, stick):
     current = 0
@@ -23,6 +24,7 @@ def selection_sort_one_pass(input_array, stick):
     stick-=1
     return input_array, stick
 
+
 def insertion_sort_one_pass(input_array, idx):
     current = input_array[idx]
     increment = 0
@@ -32,4 +34,14 @@ def insertion_sort_one_pass(input_array, idx):
 
     input_array[idx-1-increment+1]=current
     return input_array, idx
+
+
+def Shell_sort_one_pass(input_array, idx, gap):
+    current = input_array[idx]
+    increment = 0
+    while idx - gap - increment >= 0 and input_array[idx - gap - increment] > current:
+        input_array[idx - increment] = input_array[idx - gap - increment]
+        increment += gap
+    input_array[idx - gap - increment + gap] = current
+    return input_array, idx, gap
 

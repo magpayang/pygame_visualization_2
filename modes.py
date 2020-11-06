@@ -22,7 +22,7 @@ def default_mode(loop_count, surface, surface_dimension, array_length, screen_he
     return loop_count, input_array
 
 
-def buble_one_pass(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None, preFab=False):
+def bubble_one_pass(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None, preFab=False):
     if loop_count == 0:
         if preFab:
             input_array = prefabArrays.descending_array(array_length, screen_height)
@@ -34,7 +34,7 @@ def buble_one_pass(loop_count, surface, surface_dimension, array_length, screen_
         # base case case. need to pass at least equal to array_length to fully sort the list
         loop_count = 0
     else:
-        input_array = SortingAlgo.buble_sort_one_pass(input_array)
+        input_array = SortingAlgo.bubble_sort_one_pass(input_array)
         ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
         loop_count += 1
     return loop_count, input_array
@@ -75,3 +75,35 @@ def insertion_sort_one_pass(loop_count, surface, surface_dimension, array_length
         idx += 1
         loop_count += 1
     return loop_count, input_array, idx
+
+
+def Shell_sort_one_pass(loop_count, surface, surface_dimension, array_length, screen_height, color, input_array=None, preFab=False, idx=0, gap=0, gaps=[], gap_idx=0):
+    if loop_count == 0:
+        if preFab:
+            input_array = prefabArrays.descending_array(array_length, screen_height)
+        else:
+            input_array = RandomArrays.random_array(array_length, screen_height)
+        gaps=gaps
+        gap = gaps[gap_idx]
+        idx = gap
+        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+        loop_count += 1
+    elif idx == len(input_array) and gap != 1:
+        gap_idx += 1
+        gap = gaps[gap_idx]
+        idx = 0
+    elif gap == 1:
+        if idx == len(input_array):
+            gap_idx = 0
+            gap = gaps[gap_idx]
+            idx = 0
+            loop_count = 0
+        else:
+            input_array, idx, gap = SortingAlgo.Shell_sort_one_pass(input_array, idx, gap)
+            ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+            idx += 1
+    else:
+        input_array, idx, gap = SortingAlgo.Shell_sort_one_pass(input_array, idx, gap)
+        ArrayToRectangles.arrayToRectangles(surface, surface_dimension, input_array, color, 0, 0)
+        idx += 1
+    return loop_count, input_array, idx, gap, gaps, gap_idx
